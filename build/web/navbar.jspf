@@ -1,0 +1,88 @@
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+
+        <!-- Welcome -->
+        <a class="navbar-brand" href="#"> Welcome to 
+            <c:choose>
+                <c:when test="${not empty sessionScope.account}">
+                    <span class="text-danger fw-bold">
+                        ${sessionScope.account.account}
+                    </span>
+                    <span>
+                        [${sessionScope.account.firstName} ${sessionScope.account.lastName} ]
+                    </span>
+                </c:when>
+                <c:otherwise>
+                    <span class="text-secondary">Guest</span>
+                </c:otherwise>
+            </c:choose>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+
+            <!-- Menu -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" href="index.jsp">Home</a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                        Accounts
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/MainController?action=account-list">List</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/MainController?action=account-add">Add</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                        Categories
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="MainController?action=category-list">List</a></li>
+                        <li><a class="dropdown-item" href="MainController?action=category-add">Add</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                        Products
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="MainController?action=product-list">List</a></li>
+                        <li><a class="dropdown-item" href="MainController?action=product-add">Add</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Page 2</a>
+                </li>
+            </ul>
+
+            <!-- Right side: Login/Logout -->
+            <div class="d-flex gap-2">
+                <c:choose>
+                    <c:when test="${empty sessionScope.account}">
+                        <a href="${pageContext.request.contextPath}/login" class="btn btn-outline-light btn-sm">
+                            Login
+                        </a>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="${pageContext.request.contextPath}/logout" class="btn btn-warning btn-sm">
+                            Logout
+                        </a>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+        </div>
+    </div>
+</nav>
